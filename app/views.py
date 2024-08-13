@@ -56,5 +56,7 @@ def passwordupdate(request,id):
     return render(request,"passwordupdate.html",{"data":data,"form":form})
 
 
-def songpage1(request):
-    return render(request,'demo.html')
+def songlist(request):
+    return render(request,'songlist.html')
+def songpage(request):
+    return render(request,'songpage.html')

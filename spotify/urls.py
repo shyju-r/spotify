@@ -27,7 +27,8 @@ urlpatterns = [
     path('forgot/',views.forgotpassword,name="forgotpassword"),
     path('passwordupdate/<id>',views.passwordupdate,name="passupdated"),
     path('',views.indexview,name="index"),
-    path('songpage1/',views.songpage1,name="songpage1"),
+    path('songlist/',views.songlist,name="songlist"),
+    path('songpage/',views.songpage,name="songpage"),
     
 
 
