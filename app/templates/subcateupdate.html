@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUBCATEGORY DATA</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     <label for="">Category :</label>
+        <select name="category_name">
+            <option value="Made For You" >Made For You</option>
+            <option value="Top Mixes">Top Mixes</option>
+            <option value="Tamil">Tamil</option>
+            <option value="Malayalam">Malayalam</option>
+            <option value="International Mixes">International Mixes</option>
+        </select><br><br>
+<label for="">Playlist image</label>
+<input type="file" name="playlistimage"><br><br>
+<label for="">playlistname :</label>
+<input type="text" name="playlistname"><br><br>
+<label for="">Playlistartists :</label>
+<input type="text" name="playlistartists"><br><br>
+<button type="submit">Submit</button>
+
+    </form>
+</body>
+</html>

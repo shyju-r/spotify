@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongData</title>
+</head>
+<body>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+    {% comment %}<label for="">Category :</label>
+      <select name="category">
+        <option >Made For You</option>
+        <option>Top Mixes</option>
+        <option>Tamil</option>
+        <option>Malayalam</option>
+        <option>International Mixes</option>
+      </select><br><br>
+
+       <label for="">Playlistimage :</label>
+      <input type="file" name="playlistimage"><br><br>
+      <label for="">Playlistname :</label>
+      <input type="text" name="playlistname"><br><br>
+      <label for="">Playlistartists :</label>
+      <input type="text" name="playlistartists"><br><br> {% endcomment %}
+      <label for="">Playlistname :</label>
+      <input type="text" name="playlistname"><br><br>
+      <label for="">Number :</label>
+      <input type="text" name="number"><br><br>
+      <label for="">Songimage :</label>
+      <input type="file" name="songimage"><br><br>
+      <label for="">Songname :</label>
+      <input type="text" name="songname"><br><br>
+      <label for="">Songartist :</label>
+      <input type="text" name="songartist"><br><br>
+      <label for="">Moviename :</label>
+      <input type="text" name="moviename"> <br><br>
+      <label for="">Plays :</label>
+      <input type="text" name="plays"> <br><br>
+      <label for="">Duration :</label>
+      <input type="text" name="duration"> <br><br>
+      <label for="">Song:</label>
+      <input type="file" name="song"> <br><br>
+      <button>Submit</button>
+    </form>
+</body>
+</html>

@@ -4,35 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Songpage</title>
+    <title>Songpageview</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body{
             background-size:cover;
-            height: 740px;
+            height: 725px;
             
+        }
+        #imgply{
+            border-radius: 10px;
+        }
+        #closebtn{
+            width: 30px;
+        }
+        #imgcover{
+            width: 250px;
+            height: 250px;
         }
     </style>
 </head>
-<body  style="background-image: url('/static/images/spotifybg.jpg');background-repeat:no-repeat;">
-    <div class="container">
+<body  style="background-image: url('/static/images/songbg.jpg');background-repeat:no-repeat;">
+
+
+    <div class="container-fluid" style="width: 100%;margin-top:15px">
+        <div class="row" style="width: 100%;">
+           <a href="{% url 'subcateview' %}"><button class="btn" style="width:40px;margin-left:96%;"><i  class="fa-solid fa-xmark" style="color: #ffffff;"></i></button></a> 
+        </div>
+    </div>
+
+
+
+    <div class="container" style="color: white;">
         <div class="row">
-             <div class="col-2" style="width:70px ;margin-top: 100px;">
-                <img src="{% static 'images/spotify.png' %}"  width="60px">
+             <div class="col-2" style="width:70px ;margin-top: 40px;">
+                <img  src="{% static 'images/spotify.png' %}"  width="60px">
              </div>
-             <div class="col-10" style="margin-top: 100px;">
-                <h5 style="font-family: Verdana;"><b>Playing From Album</b></h5>
-                <h5>I</h5>
+             <div class="col-10" style="margin-top: 40px;">
+                <h5 style="font-family: Verdana;">Playing From Album</h5>
+                <h5><b>{{ data.moviename }}</b></h5>
              </div>
         </div>
         <div class="row">
-             <div class="col-3"   >
-               <img src="{% static 'images/music2.jpg' %}" width="250px" height="250px">
+             <div class="col-3"   style="margin-top: 180px;width:280px;">
+                {% if data %}
+                <img src="{{ data.songimage.url }}"  id="imgcover" alt="" style="margin-bottom: 20px;">
+                {% else %}
+               <p>No data available.</p>
+                {% endif %}             </div>
+             <div class="col-9" style="margin-top: 320px;">
+                 <h2 style="font-size:50px;font-weight:bold;font-family: Verdana;">{{ data.songname }}</h2>
+                 <h6 style="font-family: Verdana;font-weight:bold; ">{{ data.songartist }}</h6>
              </div>
-             <div class="col-9">
-
-             </div>
+        </div>
+        <div class="row" style="margin-top: 60px;">
+               <audio controls autoplay >
+                <source src="{{ data.song.url }}">
+               </audio>
         </div>
     </div>
 </body>

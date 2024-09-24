@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SongUpdate</title>
+</head>
+<body>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+  
+        <label for="">Playlistname :</label>
+        <input type="text" name="playlistname" value="{{form.playlistname.value}}"><br><br>
+        <label for="">Number :</label>
+        <input type="text" name="number" value="{{data.number.value}}"><br><br>
+        <label for="">Songimage :</label>
+        <input type="file" name="songimage" value="{{data.songimage.value}}"><br><br>
+        <label for="">Songname :</label>
+        <input type="text" name="songname" value="{{data.songname.value}}"><br><br>
+        <label for="">Songartist :</label>
+        <input type="text" name="songartist" value="{{data.songartist.value}}"><br><br>
+        <label for="">Moviename :</label>
+        <input type="text" name="moviename" value="{{data.moviename.value}}"> <br><br>
+        <label for="">Plays :</label>
+        <input type="text" name="plays" value="{{data.plays.value}}"> <br><br>
+        <label for="">Duration :</label>
+        <input type="text" name="duration" value="{{data.duration.value}}"> <br><br>
+        <label for="">Song:</label>
+        <input type="file" name="song" value="{{data.song.value}}"> <br><br>
+        <button>Submit</button>
+      </form>
+</body>
+</html>

@@ -22,14 +22,28 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',views.login,name="login"),
+    
+    
+    path('',views.login,name="login"),
     path('signup/',views.signup,name="signup"),
     path('forgot/',views.forgotpassword,name="forgotpassword"),
     path('passwordupdate/<id>',views.passwordupdate,name="passupdated"),
-    path('',views.indexview,name="index"),
-    path('songlist/',views.songlist,name="songlist"),
-    path('songpage/',views.songpage,name="songpage"),
     
+
+    path('category/',views.Category,name="category"),
+    path('subcatedata/',views.Subcategorydata,name="subcatedata"),
+    path('subcateview/',views.subcateview,name="subcateview"),
+    path('subcateupdate/<id>',views.subcateupdate,name="subcateupdate"),
+    
+    
+    path('songdata/',views.songdata,name="songdata"),
+    # path('songlist/',views.songlist,name="songlist"),
+    path('songdetail/<id>',views.songdetail,name="songdetail"),
+    path('songupdate/<id>',views.songdataupdate,name="songupdate"),
+    
+    
+    path('songpageview/<id>',views.songpageview,name="songpageview"),
+    # path('songdataview/',views.songdataview,name="songdataview"),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

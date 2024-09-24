@@ -102,12 +102,13 @@
               height: auto;
               transition: .5s ease;
               backface-visibility: hidden;
+              border-radius: 10px;
             }
             
             .middle {
               transition: .5s ease;
               opacity: 0;
-              position: absolute;
+              position: a bsolute;
               top: 50%;
               left: 50%;
               transform: translate(-50%, -50%);
@@ -140,6 +141,18 @@
               transform: scale(1.1);
 
             }
+
+            #add{
+              width: 60px;
+              height: 60px;
+              margin-top: 30px;
+              margin-left: 5px;
+              background-image: linear-gradient(to bottom right, #5423f1,#9c90ec ,#b2cedc);
+              border: none;
+            }
+            #heart{
+              width: 20px;
+            }
            
           
     </style>
@@ -148,11 +161,12 @@
                                                 <!--navbar-->
 
       <div class="sidebar">
-        <a href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i></a>
-        <a href="#services"><i class="fa fa-fw  fa-search"></i></a>
-        <a href="#clients"><img src="{% static 'images/playlist.png' %}"  width="40px"></i></a>
-        <a href=""><i class="fa-solid fa-plus" ></i></a>
-        
+        <a href="{% url 'subcateview' %}"><i class="fa fa-fw fa-home"></i></a>
+        <a href="#services" style="margin-top: 30px;"><i class="fa fa-fw  fa-search"></i></a>
+        <a href="#clients" style="margin-top: 30px;"><img src="{% static 'images/playlist.png' %}"  width="40px"></i></a>
+        <div class="col-1" style="width: 80px;">
+          <a href=""></a><button class="btn" id="add"><img id="heart" src="{% static 'images/hearts.png' %}" alt=""></i></button></a>
+      </div>        
       </div>
 
 
@@ -161,17 +175,17 @@
 
 
                   <ul class="nav nav-pills">
-                    <li class="nav-item">
-                      <a href="#clients"><i class="fa fas fa-chevron-left"></i></a>
+                    <li class="nav-item" >
+                      <a href="{% url 'subcateview' %}"><i class="fa fas fa-chevron-left" style="font-size:x-large;"></i></i></a>
                     </li>
-                    <li class="nav-item" style="margin-left: 20px;">
+                    <!-- <li class="nav-item" style="margin-left: 20px;">
                       <a href="#clients" ><i class="fa fas fa-chevron-right"></i></a>
-                    </li>
+                    </li> -->
                     <li class="nav-item" style="margin-left:950px;">
                       <button style="width: 150px;border-radius: 50px;height:30px;border:none;font-family:Tahoma;font-size: smaller;font-weight: 700;">Explore Premium</button>
                     </li>
                     <li class="nav-item" style="margin-left:30px;">
-                      <button style="width: 100px;border-radius: 50px;height:30px;border:none;font-family:Tahoma;font-size: smaller;font-weight: 700;">Admin</button>
+                      <a href="/admin"><button style="width: 100px;border-radius: 50px;height:30px;border:none;font-family:Tahoma;font-size: smaller;font-weight: 700;">Admin</button></a>
                     </li>
                     <li class="nav-item" style="margin-left:30px;">
                       <a href="#clients" i style="width: 40px;"><i><img src="{% static 'images/user.png' %}" width="30px"></i></a>
@@ -200,7 +214,7 @@
       <h3 style="color: white;font-family:tahoma;"><b>Good Morning</b></h3>
       <div class="row" style="width: 100%;">
         <div class="col-md-3" style="width: 25%;height:60px ;">
-          <div class="recentplay" id="recent" style="border-radius:10px;"><img src="{% static 'images/music1.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Tahoma;font-weight:bold;margin-left:10px;font-size:small;">Alaipayuthey</span></div><br>
+          <a href="{% url 'subcateview' %}" style="text-decoration: none;"><div class="recentplay" id="recent" style="border-radius:10px;"><img src="{% static 'images/music1.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Tahoma;font-weight:bold;margin-left:10px;font-size:small;">Alaipayuthey</span></div><br></a>
           <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music4.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Santhosh Subramaniyam</span></div>
         </div>
         <div class="col-md-3" style="width: 25%;">
@@ -216,316 +230,103 @@
           <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music8.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Chennai Express</span></div>
         </div>
         </div><br><br><br>
-                             <!--second row-->
+            
+        <!--second row-->
         <div class="row" >
-      <h3 style="color: white;font-family:tahoma;"><b>Made For Shyju</b></h3>
+      <h3 style="color: white;font-family:tahoma;"><b>Made For You</b></h3>
+        {% for i in data %}
+        {% if i.category_name == "Made For You" %}
 
           <div class="col-2" >
               <div class="card">
-                <a href="{% url 'songlist' %}"><img src="{% static 'images/music1.jpeg' %}" class="image" width="100%" alt="" >
+                <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
                   <div class="middle">
                     <button class="text">&#9654;</button></a>
                   </div>
               </div>
               <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
+                  <h6 style="color: white;">{{i.playlistname}}</h6>
+                  <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                  <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
               </div>
           </div>
-
-          <div class="col-2">
-              <div class="card" >
-                  <a href="{% url 'songpage' %}"><img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  ></a>
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
+          {% endif %}
+          {% endfor %}
+         
         </div><br><br><br>
 
         <!--third row-->
 
         <div class="row" >
-          <h3 style="color: white;font-family:tahoma;"><b>Your Top Mixes</b></h3>
-    
-              <div class="col-2" >
-                  <div class="card">
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                  </div>
-              </div>
-    
-              <div class="col-2">
-                  <div class="card" >
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card">
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card">
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card" >
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card" >
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-            </div><br><br><br>
+            <h3 style="color: white;font-family:tahoma;"><b>Tamil</b></h3>
+              {% for i in data %}
+              {% if i.category_name == "Tamil" %}
+      
+                <div class="col-2" >
+                    <div class="card">
+                      <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                        <div class="middle">
+                          <button class="text">&#9654;</button></a>
+                        </div>
+                    </div>
+                    <div class="card-body"><br>
+                        <h6 style="color: white;">{{i.playlistname}}</h6>
+                        <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                        <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+               
+              </div><br><br><br>
+      
 
 <!--fourth row-->
-
 <div class="row" >
-  <h3 style="color: white;font-family:tahoma;"><b>Made For Shyju</b></h3>
+    <h3 style="color: white;font-family:tahoma;"><b>Malayalam</b></h3>
+      {% for i in data %}
+      {% if i.category_name == "Malayalam" %}
 
-      <div class="col-2" >
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-          </div>
-      </div>
+        <div class="col-2" >
+            <div class="card">
+              <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                <div class="middle">
+                  <button class="text">&#9654;</button></a>
+                </div>
+            </div>
+            <div class="card-body"><br>
+                <h6 style="color: white;">{{i.playlistname}}</h6>
+                <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+       
+      </div><br><br><br>
+      <div class="row" >
+        <h3 style="color: white;font-family:tahoma;"><b>Bollywood Hits</b></h3>
+          {% for i in data %}
+          {% if i.category_name == "Bollywood Hits" %}
+  
+            <div class="col-2" >
+                <div class="card">
+                  <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                    <div class="middle">
+                      <button class="text">&#9654;</button></a>
+                    </div>
+                </div>
+                <div class="card-body"><br>
+                    <h6 style="color: white;">{{i.playlistname}}</h6>
+                    <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                    <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+           
+          </div><br><br><br>
 
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-    </div><br><br><br>
-<!--fifth row -->
-<div class="row" >
-  <h3 style="color: white;font-family:tahoma;"><b>Recommended For You</b></h3>
-
-      <div class="col-2" >
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-          </div>
-      </div>
-
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-    </div><br><br><br>
- 
-
-    <!--sixth row-->
-
-    <div class="row" >
-      <h3 style="color: white;font-family:tahoma;"><b>Discover Picks For You</b></h3>
-
-          <div class="col-2" >
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-              </div>
-          </div>
-
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-        </div><br><br><br>
 
 
      </div>
@@ -537,404 +338,138 @@
 
 
 
+
+
+
+
+
+
+
+
+
                                    <!--page 2-->
     <div id="Music" class="container tab-pane fade"><br>
-      <h3 style="color: white;font-family:tahoma;"><b>Good Morning</b></h3>
-      <div class="row" style="width: 100%;">
-        <div class="col-md-3" style="width: 25%;height:60px ;">
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music1.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Tahoma;font-weight:bold;margin-left:10px;font-size:small;">Alaipayuthey</span></div><br>
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music4.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Santhosh Subramaniyam</span></div>
-        </div>
-        <div class="col-md-3" style="width: 25%;">
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music2.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Ashique 2</span></div><br>
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music5.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">7 Am Arivu</span></div>
-        </div>
-        <div class="col-md-3" style="width: 25%;">
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music3.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Paiyaa</span></div><br>
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music6.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Remo</span></div>
-        </div>
-        <div class="col-md-3" style="width: 25%;">
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music7.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Kathi</span></div><br>
-          <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music8.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Chennai Express</span></div>
-        </div>
-        </div><br><br><br>
-
-                                <!--second row-->
+        <div class="tab-content" style="margin-bottom: 100px;">
+            <div id="All" class="container-fluid tab-pane active" ><br>
+              <h3 style="color: white;font-family:tahoma;"><b>Good Morning</b></h3>
+              <div class="row" style="width: 100%;">
+                <div class="col-md-3" style="width: 25%;height:60px ;">
+                  <a href="#" style="text-decoration: none;"><div class="recentplay" id="recent" style="border-radius:10px;"><img src="{% static 'images/music1.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Tahoma;font-weight:bold;margin-left:10px;font-size:small;">Alaipayuthey</span></div><br></a>
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music4.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Santhosh Subramaniyam</span></div>
+                </div>
+                <div class="col-md-3" style="width: 25%;">
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music2.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Ashique 2</span></div><br>
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music5.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">7 Am Arivu</span></div>
+                </div>
+                <div class="col-md-3" style="width: 25%;">
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music3.jpg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Paiyaa</span></div><br>
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music6.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Remo</span></div>
+                </div>
+                <div class="col-md-3" style="width: 25%;">
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music7.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Kathi</span></div><br>
+                  <div class="recentplay" style="border-radius:10px;"><img src="{% static 'images/music8.jpeg' %}" style="width: 60px; height: 60px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt=""><span style="color: white;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold;margin-left:10px;font-size:small;">Chennai Express</span></div>
+                </div>
+                </div><br><br><br>
+                    
+                <!--second row-->
+                <div class="row" >
+              <h3 style="color: white;font-family:tahoma;"><b>Made For You</b></h3>
+                {% for i in data %}
+                {% if i.category_name == "Made For You" %}
+        
+                  <div class="col-2" >
+                      <div class="card">
+                        <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                          <div class="middle">
+                            <button class="text">&#9654;</button></a>
+                          </div>
+                      </div>
+                      <div class="card-body"><br>
+                          <h6 style="color: white;">{{i.playlistname}}</h6>
+                          <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                          <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+                      </div>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                 
+                </div><br><br><br>
+        
+                <!--third row-->
+        
+                <div class="row" >
+                    <h3 style="color: white;font-family:tahoma;"><b>Tamil</b></h3>
+                      {% for i in data %}
+                      {% if i.category_name == "Tamil" %}
+              
+                        <div class="col-2" >
+                            <div class="card">
+                              <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                                <div class="middle">
+                                  <button class="text">&#9654;</button></a>
+                                </div>
+                            </div>
+                            <div class="card-body"><br>
+                                <h6 style="color: white;">{{i.playlistname}}</h6>
+                                <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                                <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                       
+                      </div><br><br><br>
+              
+        
+        <!--fourth row-->
         <div class="row" >
-      <h3 style="color: white;font-family:tahoma;"><b>Made For Shyju</b></h3>
-
-          <div class="col-2" >
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}" class="image" width="100%" alt="" >
-                  <div class="middle">
-                    <a href=""><button class="text">&#9654;</button></a>
-                  </div>
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-              </div>
-          </div>
-
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card">
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-          <div class="col-2">
-              <div class="card" >
-                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-              </div>
-              <div class="card-body"><br>
-                  <h6 style="color: white;">Daily Mix 1</h6>
-                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-           </div>
-          </div>
-        </div><br><br><br>
-
-        <!--third row-->
-
-        <div class="row" >
-          <h3 style="color: white;font-family:tahoma;"><b>Your Top Mixes</b></h3>
-    
-              <div class="col-2" >
-                  <div class="card">
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                  </div>
-              </div>
-    
-              <div class="col-2">
-                  <div class="card" >
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card">
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card">
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card" >
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-              <div class="col-2">
-                  <div class="card" >
-                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                  </div>
-                  <div class="card-body"><br>
-                      <h6 style="color: white;">Daily Mix 1</h6>
-                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-               </div>
-              </div>
-            </div><br><br><br>
-
-<!--fourth row-->
-
-<div class="row" >
-  <h3 style="color: white;font-family:tahoma;"><b>Made For Shyju</b></h3>
-
-      <div class="col-2" >
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-          </div>
-      </div>
-
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card">
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-      <div class="col-2">
-          <div class="card" >
-              <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-          </div>
-          <div class="card-body"><br>
-              <h6 style="color: white;">Daily Mix 1</h6>
-              <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-       </div>
-      </div>
-    </div><br><br><br>
-                        <!--second row-->
-                        <div class="row" >
-                          <h3 style="color: white;font-family:tahoma;"><b>Made For Shyju</b></h3>
-                    
-                              <div class="col-2" >
-                                  <div class="card">
-                                      <img src="{% static 'images/music1.jpeg' %}" class="image" width="100%" alt="" >
-                                      <div class="middle">
-                                        <a href=""><button class="text">&#9654;</button></a>
-                                      </div>
-                                  </div>
-                                  <div class="card-body"><br>
-                                      <h6 style="color: white;">Daily Mix 1</h6>
-                                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                  </div>
-                              </div>
-                    
-                              <div class="col-2">
-                                  <div class="card" >
-                                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-                                  </div>
-                                  <div class="card-body"><br>
-                                      <h6 style="color: white;">Daily Mix 1</h6>
-                                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                               </div>
-                              </div>
-                              <div class="col-2">
-                                  <div class="card">
-                                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                                  </div>
-                                  <div class="card-body"><br>
-                                      <h6 style="color: white;">Daily Mix 1</h6>
-                                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                               </div>
-                              </div>
-                              <div class="col-2">
-                                  <div class="card">
-                                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                                  </div>
-                                  <div class="card-body"><br>
-                                      <h6 style="color: white;">Daily Mix 1</h6>
-                                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                               </div>
-                              </div>
-                              <div class="col-2">
-                                  <div class="card" >
-                                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                                  </div>
-                                  <div class="card-body"><br>
-                                      <h6 style="color: white;">Daily Mix 1</h6>
-                                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                               </div>
-                              </div>
-                              <div class="col-2">
-                                  <div class="card" >
-                                      <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                                  </div>
-                                  <div class="card-body"><br>
-                                      <h6 style="color: white;">Daily Mix 1</h6>
-                                      <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                               </div>
-                              </div>
-                            </div><br><br><br>
-                    
-                            <!--third row-->
-                    
-                            <div class="row" >
-                              <h3 style="color: white;font-family:tahoma;"><b>Your Top Mixes</b></h3>
-                        
-                                  <div class="col-2" >
-                                      <div class="card">
-                                          <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                                      </div>
-                                      <div class="card-body"><br>
-                                          <h6 style="color: white;">Daily Mix 1</h6>
-                                          <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                      </div>
-                                  </div>
-                        
-                                  <div class="col-2">
-                                      <div class="card" >
-                                          <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-                                      </div>
-                                      <div class="card-body"><br>
-                                          <h6 style="color: white;">Daily Mix 1</h6>
-                                          <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                   </div>
-                                  </div>
-                                  <div class="col-2">
-                                      <div class="card">
-                                          <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                                      </div>
-                                      <div class="card-body"><br>
-                                          <h6 style="color: white;">Daily Mix 1</h6>
-                                          <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                   </div>
-                                  </div>
-                                  <div class="col-2">
-                                      <div class="card">
-                                          <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                                      </div>
-                                      <div class="card-body"><br>
-                                          <h6 style="color: white;">Daily Mix 1</h6>
-                                          <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                   </div>
-                                  </div>
-                                  <div class="col-2">
-                                      <div class="card" >
-                                          <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                                      </div>
-                                      <div class="card-body"><br>
-                                          <h6 style="color: white;">Daily Mix 1</h6>
-                                          <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                   </div>
-                                  </div>
-                                  <div class="col-2">
-                                      <div class="card" >
-                                          <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                                      </div>
-                                      <div class="card-body"><br>
-                                          <h6 style="color: white;">Daily Mix 1</h6>
-                                          <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                                   </div>
-                                  </div>
-                                </div><br><br><br>
-                    
-                    <!--fourth row-->
-                    
-                    <div class="row" >
-                      <h3 style="color: white;font-family:tahoma;"><b>Made For Shyju</b></h3>
-                    
-                          <div class="col-2" >
-                              <div class="card">
-                                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                              </div>
-                              <div class="card-body"><br>
-                                  <h6 style="color: white;">Daily Mix 1</h6>
-                                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                              </div>
-                          </div>
-                    
-                          <div class="col-2">
-                              <div class="card" >
-                                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt=""  >
-                              </div>
-                              <div class="card-body"><br>
-                                  <h6 style="color: white;">Daily Mix 1</h6>
-                                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                           </div>
-                          </div>
-                          <div class="col-2">
-                              <div class="card">
-                                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                              </div>
-                              <div class="card-body"><br>
-                                  <h6 style="color: white;">Daily Mix 1</h6>
-                                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                           </div>
-                          </div>
-                          <div class="col-2">
-                              <div class="card">
-                                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                              </div>
-                              <div class="card-body"><br>
-                                  <h6 style="color: white;">Daily Mix 1</h6>
-                                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                           </div>
-                          </div>
-                          <div class="col-2">
-                              <div class="card" >
-                                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="" >
-                              </div>
-                              <div class="card-body"><br>
-                                  <h6 style="color: white;">Daily Mix 1</h6>
-                                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                           </div>
-                          </div>
-                          <div class="col-2">
-                              <div class="card" >
-                                  <img src="{% static 'images/music1.jpeg' %}"  width="100%" alt="">
-                              </div>
-                              <div class="card-body"><br>
-                                  <h6 style="color: white;">Daily Mix 1</h6>
-                                  <p style="color: #a29b9b;font-family:tahoma;">A.R.Rahman, Harris Jayaraj, G.V.Prakash, and more</p>
-                           </div>
-                          </div>
-                        </div><br><br><br>
-
-
+            <h3 style="color: white;font-family:tahoma;"><b>Malayalam</b></h3>
+              {% for i in data %}
+              {% if i.category_name == "Malayalam" %}
+        
+                <div class="col-2" >
+                    <div class="card">
+                      <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                        <div class="middle">
+                          <button class="text">&#9654;</button></a>
+                        </div>
+                    </div>
+                    <div class="card-body"><br>
+                        <h6 style="color: white;">{{i.playlistname}}</h6>
+                        <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                        <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+               
+              </div><br><br><br>
+              <div class="row" >
+                <h3 style="color: white;font-family:tahoma;"><b>Bollywood Hits</b></h3>
+                  {% for i in data %}
+                  {% if i.category_name == "Bollywood Hits" %}
+          
+                    <div class="col-2" >
+                        <div class="card">
+                          <a href="{% url 'songdetail' i.id %}"><img src="{{ i.playlistimage.url }}" class="image" width="100%" alt="" >
+                            <div class="middle">
+                              <button class="text">&#9654;</button></a>
+                            </div>
+                        </div>
+                        <div class="card-body"><br>
+                            <h6 style="color: white;">{{i.playlistname}}</h6>
+                            <p style="color: #a29b9b;font-family:tahoma;">{{i.playlistartists}}</p>
+                            <!-- <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'subcateupdate' i.id %}" style="color: black;text-decoration:none;">Update</a></button></center> -->
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                   
+                  </div><br><br><br>
+        
+        
+        
+             </div>
 
     </div>
   </div>
