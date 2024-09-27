@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.urls import reverse
 from app.forms import SignupForm,ForgetpassForm,SongForm,SongupdateForm,subcategoryForm,CategoryForm
 from app.models import Signupmodel,Songmodel,Subcategorymodel,CategoryModel
 
@@ -142,11 +143,14 @@ def songdata(request):
 # def songlist(request):
 #     return render(request,'songlist.html')
 
-def songdetail(request, id):
+def songdetail(request, trans_Id,id):
     data = Subcategorymodel.objects.get(id=id)
-    songdata=Songmodel.objects.filter(palylist_id=id)
+    songdata=Songmodel.objects.filter(trans_Id=trans_Id, id=id)
     print(songdata)
     return render(request, "songlist.html", {"data": data ,"songdata":songdata})
+
+
+
 
 def songdataupdate(request, id):
     data = get_object_or_404(Songmodel, id=id)
@@ -174,10 +178,25 @@ def songpageview(request,id):
 
 
 
+def searchbar(request):
+    data=Songmodel.objects.all()
+    query=request.GET.get('s',' ').strip()
+    if query:
+        data=Songmodel.objects.filter(
+            songname__icontains=query
+        ) | Songmodel.objects.filter(
+            moviename__icontains=query
+        )
+        print(data)
 
-# def songdataview(request):
-#     data=Songmodel.objects.all()
-#     return render(request,'songlist.html',{"data":data})
+        context = {
+            'data': data,
+            'query': query
+        }
+        print(query)
+        return render(request, "search.html",context)
+    else:
+        return render(request,"search.html")
 
 
 

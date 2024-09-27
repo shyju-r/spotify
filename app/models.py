@@ -1,4 +1,6 @@
 from django.db import models
+import string
+import random
 
 # Create your models here.
 class Signupmodel(models.Model):
@@ -17,7 +19,10 @@ class Subcategorymodel(models.Model):
     playlistname=models.TextField()
     playlistartists=models.TextField()
     
-    
+def generate_Id(length=8):
+    characters = string.ascii_uppercase + string.digits
+    uid = ''.join(random.choice(characters) for _ in range(length))
+    return uid
     
 class Songmodel(models.Model):
     palylist=models.ForeignKey(Subcategorymodel,on_delete=models.CASCADE,null=True)
@@ -30,4 +35,9 @@ class Songmodel(models.Model):
     plays=models.TextField()
     duration=models.TextField()
     song = models.FileField(upload_to="audio_files/",null=True) 
+    trans_Id = models.CharField(null=True, max_length=8, unique=True, blank=True )
     
+    def save(self, *args, **kwargs):
+        if not self.trans_Id:
+            self.trans_Id = generate_Id()
+        super(Songmodel,self).save(*args, **kwargs)

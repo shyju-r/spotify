@@ -37,13 +37,13 @@ urlpatterns = [
     
     
     path('songdata/',views.songdata,name="songdata"),
-    # path('songlist/',views.songlist,name="songlist"),
     path('songdetail/<id>',views.songdetail,name="songdetail"),
+    # path('songdetail/<str:trans_Id>/<int:id>',views.songdetail,name="songdetail"),
     path('songupdate/<id>',views.songdataupdate,name="songupdate"),
     
     
     path('songpageview/<id>',views.songpageview,name="songpageview"),
-    # path('songdataview/',views.songdataview,name="songdataview"),
+    path('search',views.searchbar,name="search"),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
