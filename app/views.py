@@ -41,7 +41,7 @@ def forgotpassword(request):
     return render(request,"forgotpassword.html")
 
 
-def passwordupdate(request,id):
+def passwordupdate(request,id): 
     data=Signupmodel.objects.get(id=id)
     if request.method =="POST":
         form=ForgetpassForm(request.POST,instance=data)
@@ -143,11 +143,39 @@ def songdata(request):
 # def songlist(request):
 #     return render(request,'songlist.html')
 
-def songdetail(request, trans_Id,id):
+def songdetail(request, id):
     data = Subcategorymodel.objects.get(id=id)
-    songdata=Songmodel.objects.filter(trans_Id=trans_Id, id=id)
-    print(songdata)
-    return render(request, "songlist.html", {"data": data ,"songdata":songdata})
+    songdata = Songmodel.objects.filter(palylist_id=id)
+ 
+    
+
+    
+    if request.POST.get("whishlist"):
+        print("joo")
+        data=request.POST.get("whishlist")
+        print(data)
+        songwish=Songmodel.objects.get(id=data)
+        songwish.status=True
+        songwish.save()
+        print("wishsaved")
+        redirect_url = reverse('songdetail', args=[id])  # Assuming 'songdetail' is the URL name for the detail view
+        return redirect(redirect_url)
+    elif request.POST.get("whishred"):
+        print("joo")
+        data=request.POST.get("whishred")
+        print(data)
+        songwish=Songmodel.objects.get(id=data)
+        songwish.status=False
+        songwish.save()
+        print("wishsaved")
+        redirect_url = reverse('songdetail', args=[id])  # Assuming 'songdetail' is the URL name for the detail view
+        return redirect(redirect_url)
+           
+    return render(request, "songlist.html", {"data": data, "songdata": songdata})
+
+
+
+
 
 
 
@@ -200,7 +228,10 @@ def searchbar(request):
 
 
 
-
+def whishlist(request):
+    data=Songmodel.objects.filter(status =1)
+    print(data)
+    return render(request,'likedsongs.html',{'data':data})
 
 
 

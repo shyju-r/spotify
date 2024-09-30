@@ -99,7 +99,7 @@
               opacity: 1;
               display: block;
               width: 100%;
-              height: auto;
+              height: 200px;
               transition: .5s ease;
               backface-visibility: hidden;
               border-radius: 10px;
@@ -143,10 +143,10 @@
             }
 
             #add{
-              width: 60px;
-              height: 60px;
+              width: 50px;
+              height: 50px;
               margin-top: 30px;
-              margin-left: 5px;
+              margin-left: -5px;
               background-image: linear-gradient(to bottom right, #5423f1,#9c90ec ,#b2cedc);
               border: none;
             }
@@ -165,7 +165,7 @@
         <a href="{% url 'search' %}" style="margin-top: 30px;"><i class="fa fa-fw  fa-search"></i></a>
         <a href="#clients" style="margin-top: 30px;"><img src="{% static 'images/playlist.png' %}"  width="40px"></i></a>
         <div class="col-1" style="width: 80px;">
-          <a href=""></a><button class="btn" id="add"><img id="heart" src="{% static 'images/hearts.png' %}" alt=""></i></button></a>
+          <a href="/whishlist"> <button class="btn" id="add"><img id="heart" src="{% static 'images/hearts.png' %}" alt=""></i></button></a>
       </div>        
       </div>
 

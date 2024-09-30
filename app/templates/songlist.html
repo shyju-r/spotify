@@ -76,16 +76,14 @@
           #add{
             width: 60px;
             height: 60px;
-            margin-left: 23px;
+            margin-left: -13px;
             background-image: linear-gradient(to bottom right, #5423f1,#9c90ec ,#b2cedc);
             border: none;
           }
           #ad{
             width: 60px;
             height: 60px;
-           
-            margin-left: 5px;
-            
+          
           }
           #gh{
             color:black ;
@@ -151,7 +149,7 @@
                 <a href="{% url 'search' %}" style="margin-top: 20px;"><i class="fa fa-fw  fa-search"></i></a>
                 <a href="#clients" style="margin-top: 20px;"><img src="{% static 'images/playlist.png' %}"  width="40px"></i></a>
                 <div class="col-1" style="width: 80px;">
-                  <a href=""></a><button class="btn" id="add"><img id="heart" src="{% static 'images/hearts.png' %}" alt=""></i></button></a>
+                  <a href="/whishlist"><button class="btn" id="add"><img id="heart" src="{% static 'images/hearts.png' %}" alt=""></i></button></a>
               </div> 
                 
               </div>
@@ -217,7 +215,7 @@
                  <button class="btn" id="download"><i class="fa-solid fa-arrow-down" style="color: #9d9a9a;font-size:xx-large"></i></button>
             </div>
             <div class="col-8">
-                 <button class="btn" id="search"><i class="fa-solid fa-magnifying-glass" style="color: #9d9a9a;font-size:xx-large"></i></button>
+                 <a href="/search"><button class="btn" id="search"><i class="fa-solid fa-magnifying-glass" style="color: #9d9a9a;font-size:xx-large"></i></button></a>
             </div>
           </div>
       </div>
@@ -240,10 +238,13 @@
                   <p>{{ i.songartist }}</p></a>
                 </td>
                 <td>{{ i.plays }}</td>
-                <td>   <a href=""><button class="btn" id="ad"><img id="heart" src="{% static 'images/greyheart.ico' %}" alt=""></button></a> 
+                <td>{%if i.status == 0 %}
+                  <form action="" method ="post"> {%csrf_token%} <button class="btn" id="ad" name="whishlist" value="{{i.id}}"><img id="heart" src="{% static 'images/hearts.png' %}" alt=""></button></form>
+                  {%else%}
+                  <form action="" method ="post"> {%csrf_token%} <button class="btn" id="ad" name="whishred" value="{{i.id}}"><img id="heart" src="{% static 'images/hearts-red.png' %}" alt=""></button></form>
+                  {%endif%}
                 </td>
                 <td>{{ i.duration }}</td>
-                <!-- <td> <center><button class="btn" style="background-color: rgb(16, 149, 134);"><a href="{% url 'songupdate' i.id %}" style="color: black;">Update</a></button></center> -->
                 </td>
               </a>
               </tr >
@@ -273,5 +274,7 @@
            </div>
        </div>
     </div>
+
+ 
 </body>
 </html>

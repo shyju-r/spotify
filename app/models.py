@@ -36,8 +36,16 @@ class Songmodel(models.Model):
     duration=models.TextField()
     song = models.FileField(upload_to="audio_files/",null=True) 
     trans_Id = models.CharField(null=True, max_length=8, unique=True, blank=True )
+    status= models.BooleanField(null=True, default=False)
     
     def save(self, *args, **kwargs):
         if not self.trans_Id:
             self.trans_Id = generate_Id()
         super(Songmodel,self).save(*args, **kwargs)
+        
+        
+        
+class wishlist(models.Model):
+    song=models.ForeignKey(Songmodel,on_delete=models.CASCADE)
+    wishstatus=models.BooleanField()
+    

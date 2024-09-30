@@ -32,12 +32,14 @@
 
     <div class="container-fluid" style="width: 100%;margin-top:15px">
         <div class="row" style="width: 100%;">
-           <a href="{% url 'songdetail' data.trans_Id %}"> <button class="btn" style="width:40px;margin-left:96%;" ><i  class="fa-solid fa-xmark" style="color: #ffffff;"></i></button></a>
-
-            <!-- <form action="" method="post">
+            <form method="POST" action="{% url 'songdetail' data.id %}">
                 {% csrf_token %}
-           <button class="btn" style="width:40px;margin-left:96%;" name="close" value="{{data.id}}"><i  class="fa-solid fa-xmark" style="color: #ffffff;"></i></button>
-        </form> -->
+                <button class="btn" style="width:40px; margin-left:96%;" name="close" value="{{ data.id }}">
+                    <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+                </button>
+            </form>
+            
+            
         </div>
     </div>
 
